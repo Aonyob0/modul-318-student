@@ -1,4 +1,5 @@
 using SwissTransport.Core;
+using SwissTransport.Models;
 
 namespace SBBLite
 {
@@ -27,9 +28,8 @@ namespace SBBLite
 
         private void btnSuchenVerbindungClick(object sender, EventArgs e)
         {
-           
+            Connections suchResultat = _transport.GetConnections(tbxVerbindungStart.Text, tbxVerbindungZiel.Text);
+            suchResultat.ConnectionList[0].From
         }
-
-
     }
 }
