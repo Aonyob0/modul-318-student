@@ -28,11 +28,17 @@ namespace SBBLite
         private void btnStationSuchenClick(object sender, EventArgs e)
         {
             dgvStationen.Rows.Clear();
-            Stations suchResultat = _transport.GetStations(tbxStationEingabe.Text);
-
-            foreach (Station station in suchResultat.StationList.Where(x => x.Id != null))
+            try
             {
-                dgvStationen.Rows.Add(station.Name, station.Id);
+                Stations suchResultat = _transport.GetStations(tbxStationEingabe.Text);
+                foreach (Station station in suchResultat.StationList.Where(x => x.Id != null))
+                {
+                    dgvStationen.Rows.Add(station.Name, station.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\nÜberprüfen Sie Ihre Internetverbindung.");
             }
         }
 

@@ -59,12 +59,12 @@
             {
                 throw new ArgumentNullException(nameof(fromStation));
             }
-
+            /*
             if (string.IsNullOrEmpty(toStation))
             {
                 throw new ArgumentNullException(nameof(toStation));
             }
-
+            */
             var uri = new Uri($"{WebApiHost}connections?from={fromStation}&to={toStation}&date={date.ToString("yyyy-MM-dd")}&time={time.ToString("HH:mm")}&limit=16");
             return this.GetObject<Connections>(uri);
         }

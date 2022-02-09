@@ -27,18 +27,24 @@ namespace SBBLite
         private void btnSuchenVerbindungClick(object sender, EventArgs e)
         {
             dgvVerbindungSuchen.Rows.Clear();
-            Connections suchResultat = _transport.GetConnections(tbxVerbindungStart.Text, tbxVerbindungZiel.Text, dtpTime.Value, dtpDatum.Value);
-            
-            foreach (Connection connection in suchResultat.ConnectionList)
+            try
             {
-                dgvVerbindungSuchen.Rows.Add
-                    (
-                    $"{connection.From.Station.Name} -> {connection.To.Station.Name}",
-                    connection.From.Departure.Value.ToString("HH:mm"),
-                    connection.To.Arrival.Value.ToString("HH:mm"),
-                    $"{connection.From.Platform} -> {connection.To.Platform}",
-                    connection.Duration
-                    );
+                Connections suchResultat = _transport.GetConnections(tbxVerbindungStart.Text, tbxVerbindungZiel.Text, dtpTime.Value, dtpDatum.Value);
+                foreach (Connection connection in suchResultat.ConnectionList)
+                {
+                    dgvVerbindungSuchen.Rows.Add
+                        (
+                        $"{connection.From.Station.Name} -> {connection.To.Station.Name}",
+                        connection.From.Departure.Value.ToString("HH:mm"),
+                        connection.To.Arrival.Value.ToString("HH:mm"),
+                        $"{connection.From.Platform} -> {connection.To.Platform}",
+                        connection.Duration
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\nÜberprüfen Sie Ihre Internetverbindung.");
             }
         }
     }
